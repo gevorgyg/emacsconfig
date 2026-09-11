@@ -142,8 +142,10 @@ If the new path's directories does not exist, create them."
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; Show the help buffer after startup---makes it a little bit like nano
+;; Show the help buffer after startup---makes it a little bit like nano.
+;; You can open and dismiss this buffer with `C-h C-q'.
 (add-hook 'after-init-hook 'help-quick)
+
 (setopt view-lossage-auto-refresh t)
 
 ;; which-key: shows a popup of available keybindings when typing a long key
