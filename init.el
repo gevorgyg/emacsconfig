@@ -340,6 +340,9 @@ If the new path's directories does not exist, create them."
 ;; Vim-bindings in Emacs (evil-mode configuration)
 ;(load-file (expand-file-name "extras/vim-like.el" user-emacs-directory))
 
+;; Writing-focused packages (dictionary, spell-checking, etc.)
+;(load-file (expand-file-name "extras/writer.el" user-emacs-directory))
+
 ;; Org-mode configuration
 ;; WARNING: need to customize things inside the elisp file before use! See
 ;; the file extras/org-intro.txt for help.

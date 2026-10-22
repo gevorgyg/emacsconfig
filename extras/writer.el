@@ -14,11 +14,6 @@
 ;;;
 ;;; Olivetti narrows the window margins so that your text is centered.
 ;;; This makes writing in a wide, dedicated window more pleasant.
-;;;
-;;; NOTE: the Olivetti package lives on the MELPA repository; you will
-;;; need to update the `package-archives' variable in init.el before
-;;; before loading this file; see the comment in init.el under
-;;; "Package initialization".
 
 ;;; Contents:
 ;;;
