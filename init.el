@@ -327,18 +327,8 @@ If the new path's directories does not exist, create them."
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; Uncomment the (load-file …) lines or copy code from the extras/ elisp files
-;; as desired
-
-;; UI/UX enhancements mostly focused on minibuffer and autocompletion interfaces
-;; These ones are *strongly* recommended!
-;(load-file (expand-file-name "extras/base.el" user-emacs-directory))
-
-;; Packages for software development
-;(load-file (expand-file-name "extras/dev.el" user-emacs-directory))
-
-;; Vim-bindings in Emacs (evil-mode configuration)
-;(load-file (expand-file-name "extras/vim-like.el" user-emacs-directory))
+(load-file (expand-file-name "extras/base.el" user-emacs-directory))
+(load-file (expand-file-name "extras/dev.el" user-emacs-directory))
 
 ;; Writing-focused packages (dictionary, spell-checking, etc.)
 ;(load-file (expand-file-name "extras/writer.el" user-emacs-directory))
@@ -367,16 +357,14 @@ If the new path's directories does not exist, create them."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(citar-typst which-key)))
+ '(package-selected-packages
+   '(avy cape citar-typst consult corfu eat embark-consult kind-icon
+	 marginalia orderless vertico which-key)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-
- ;; This sets the default font for Emacs. Height is in 1/10 pt; configure as desired.
- ;; The example font listed here, Iosevka Output, is available here: https://codeberg.org/ashton314/iosevka-output
- ;; '(default ((t (:weight normal :height 130 :width expanded :family "Iosevka Output"))))
  )
 
 (setq gc-cons-threshold (or bedrock--initial-gc-threshold 800000))
