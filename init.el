@@ -134,7 +134,7 @@
   :bind ("C-c j" . avy-goto-line))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 4. Developer Tools (from Bedrock extras/dev.el)
+;;; 4. Developer Tools 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package emacs
@@ -157,26 +157,25 @@
             (c-mode          . c-ts-mode)
             (c++-mode        . c++-ts-mode))))
 
-;; Built-in LSP Client (Eglot)
-(use-package eglot
-  :hook ((python-ts-mode
-          c-ts-mode
-          c++-ts-mode
-          rust-ts-mode
-          go-ts-mode
-          js-ts-mode
-          typescript-ts-mode) . eglot-ensure)
-  :custom
-  (eglot-send-changes-idle-time 0.1)
-  (eglot-extend-to-xref t)
-  :config
-  (fset #'jsonrpc--log-event #'ignore) ; Boost Eglot performance
-  :bind (:map eglot-mode-map
-              ("C-c l a" . eglot-code-actions)
-              ("C-c l r" . eglot-rename)
-              ("C-c l h" . eldoc)
-              ("C-c l f" . eglot-format)
-              ("C-c l F" . eglot-format-buffer)))
+;; Non-LSP completion for C/C++ (Corfu shows whatever these capfs return)
+(use-package cape :ensure t)
+
+(defun my/c-capf-setup ()
+  "Buffer-local completion sources for C/C++: tags, open buffers, file paths."
+  (setq-local completion-at-point-functions
+              (list (cape-capf-super
+                     #'tags-completion-at-point-function
+                     #'cape-dabbrev
+                     #'cape-file))))
+(add-hook 'c-ts-mode-hook   #'my/c-capf-setup)
+(add-hook 'c++-ts-mode-hook #'my/c-capf-setup)
+
+;; Etags: auto-generate/refresh a TAGS file for the current project.
+;; Uses GNU etags by default; for Universal Ctags use:
+;;   (setq etags-regen-program "ctags -e")
+(use-package etags-regen
+  :init (etags-regen-mode 1)
+  :custom (etags-regen-create-on-completion t))
 
 ;; Magit: Git interface
 (use-package magit
