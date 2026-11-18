@@ -110,23 +110,10 @@
   (xref-show-xrefs-function #'consult-xref)
   (xref-show-definitions-function #'consult-xref))
 
-;; Corfu: In-buffer popup code completion
-(use-package corfu
-  :ensure t
-  :init (global-corfu-mode 1)
-  :custom
-  (corfu-auto t)
-  (corfu-cycle t)
-  :bind (:map corfu-map
-              ("SPC" . corfu-insert-separator)
-              ("C-n" . corfu-next)
-              ("C-p" . corfu-previous)))
-
-(use-package corfu-popupinfo
-  :after corfu
-  :hook (corfu-mode . corfu-popupinfo-mode)
-  :custom
-  (corfu-popupinfo-delay '(0.25 . 0.1)))
+;; Completion Preview (built-in): ghost-text completion in code buffers.
+;; TAB accepts the suggestion; when none is shown, TAB indents as usual.
+(use-package completion-preview
+  :hook (prog-mode . completion-preview-mode))
 
 ;; Avy: Jump to any visible text quickly
 (use-package avy
@@ -157,7 +144,11 @@
             (c-mode          . c-ts-mode)
             (c++-mode        . c++-ts-mode))))
 
-;; Non-LSP completion for C/C++ (Corfu shows whatever these capfs return)
+;; C/C++ indentation (tree-sitter modes)
+(setopt c-ts-mode-indent-style 'k&r
+        c-ts-mode-indent-offset 4)
+
+;; Non-LSP completion for C/C++ (Completion Preview shows what these capfs return)
 (use-package cape :ensure t)
 
 (defun my/c-capf-setup ()
